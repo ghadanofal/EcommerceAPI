@@ -18,6 +18,6 @@ namespace Ecommerce.Core.Models
         public Category? categories { get; set; }
 
        
-        public ICollection<OrderDetails> orderDetails = new HashSet<OrderDetails>();
+        public ICollection<OrderDetails>? orderDetails = new HashSet<OrderDetails>();
     }
 }

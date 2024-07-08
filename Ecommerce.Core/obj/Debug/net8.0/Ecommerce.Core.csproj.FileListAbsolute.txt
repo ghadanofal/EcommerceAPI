@@ -9,3 +9,4 @@ D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\Ecommerce
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\refint\Ecommerce.Core.dll
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\Ecommerce.Core.pdb
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\ref\Ecommerce.Core.dll
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\Ecommerce.Core.sourcelink.json

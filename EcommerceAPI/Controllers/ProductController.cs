@@ -12,50 +12,81 @@ namespace Ecommerce.API.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IUnitOfWork<Product> unitOfWork;
+        
         private readonly IProductsRepository iproductRepo;
         private readonly IGenericRepository<Product> igenericRepo;
         private readonly IProductsRepository productRepositories;
-
+        public ApiResponse response;
         public ProductController(ApplicationDbContext context,/*IProductsRepository iproductRepo */ IUnitOfWork<Product>unitOfWork)
         {
             this.context = context;
             this.unitOfWork = unitOfWork;
+            response = new ApiResponse();
             /*this.iproductRepo = iproductRepo;
             this.igenericRepo = igenericRepo;*/
             //this.iproductRepo = iproductRepo;
             //this.productRepositories = productRepositories;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAll()
+        public async Task<ActionResult<ApiResponse>> GetAll()
         {
             //igenericRepo.GetAll();
            // var models = iproductRepo.GetAll();
             var models = await unitOfWork.productRepository.GetAll();
-
-            return Ok(models);
+            var check = models.Any();
+            if (check)
+            {
+                response.StatusCode = System.Net.HttpStatusCode.OK;
+                response.IsSuccess = check;
+                response.Result = models;
+                return response;
+            }
+            else
+            {
+                response.ErrorMessage = "no products found";
+                response.StatusCode = System.Net.HttpStatusCode.OK;
+                response.IsSuccess = false;
+                return response;
+            }
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetById(int id)
+        public async Task<ActionResult<ApiResponse>> GetById(int id)
         {
             //var model = igenericRepo.GetById(id);
             //var model = iproductRepo.GetById(id);
             var model = await unitOfWork.productRepository.GetById(id);
-            return Ok(model);
+            var check = model !=null;
+            if (check)
+            {
+                response.StatusCode = System.Net.HttpStatusCode.OK;
+                response.IsSuccess = check;
+                response.Result = model;
+                return response;
+            }
+            else
+            {
+                response.ErrorMessage = "no products found";
+                response.StatusCode = System.Net.HttpStatusCode.OK;
+                response.IsSuccess = false;
+                return response;
+            }
         }
+
         [HttpPost]
-        public  async Task<ActionResult> CreateProduct(Product request)
+        public  async Task<ActionResult<ApiResponse>> CreateProduct(Product request)
         {
             //igenericRepo.CreateProduct(request);
            // iproductRepo.CreateProduct(request);
             await unitOfWork.productRepository.CreateProduct(request);
-            unitOfWork.Save();
+            await unitOfWork.Save();
             //context.SaveChanges();
 
             return Ok();
         }
+
         [HttpPut]
-        public async Task<ActionResult> updateProduct(Product request)
+        public async Task<ActionResult<ApiResponse>> updateProduct(Product request)
         {
             //igenericRepo.updateProduct(request);
             //iproductRepo.updateProduct(request);

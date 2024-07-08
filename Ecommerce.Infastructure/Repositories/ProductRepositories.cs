@@ -19,11 +19,11 @@ namespace Ecommerce.Infastructure.Repositories
         }
 
        
-        public Product FilterProduct()
+        public Task<Product> FilterProduct()
         {
             throw new NotImplementedException();
         }
 
-      
+        
     }
 }
