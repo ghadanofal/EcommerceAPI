@@ -10,3 +10,4 @@ D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\refint\Ec
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\Ecommerce.Core.pdb
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\ref\Ecommerce.Core.dll
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\Ecommerce.Core.sourcelink.json
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Core\obj\Debug\net8.0\Ecommerce.Core.csproj.AssemblyReference.cache

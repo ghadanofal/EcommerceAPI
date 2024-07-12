@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Core.IRepositories;
+using Ecommerce.Core.Models;
 using Ecommerce.Infastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,6 +33,11 @@ namespace Ecommerce.Infastructure.Repositories
 
         public async Task<IEnumerable<T>> GetAll()
         {
+            if(typeof(T)== typeof(Product))
+            {
+                var query = await context.Products.Include(x => x.categories).ToListAsync();
+                 return (IEnumerable<T>)query;
+            }
             return await context.Set<T>().ToListAsync();
         }
 

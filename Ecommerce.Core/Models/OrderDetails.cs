@@ -14,7 +14,7 @@ namespace Ecommerce.Core.Models
         public decimal price {  get; set; }
         public int quantity { get; set; }
 
-        public Order? Orders { get; set; }
-        public Product? Products { get; set; }
+        public virtual Order? Orders { get; set; }
+        public virtual Product? Products { get; set; }
     }
 }

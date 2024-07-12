@@ -17,6 +17,6 @@ namespace Ecommerce.Core.Models
         public string Phone { get; set; }
 
         public string Role { get; set; }
-        public ICollection<Order> Orders { get; set; } = new HashSet<Order>();
+        public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
     }
 }

@@ -1,4 +1,5 @@
 
+using Ecommerce.API.mapping_profile;
 using Ecommerce.Core.IRepositories;
 using Ecommerce.Core.Models;
 using Ecommerce.Infastructure.Data;
@@ -18,7 +19,7 @@ namespace EcommerceAPI
             builder.Services.AddControllers();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).UseLazyLoadingProxies();
             });
 
             //builder.Services.AddScoped(typeof(IProductsRepository), typeof(IProductsRepository));
@@ -27,7 +28,7 @@ namespace EcommerceAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddAutoMapper(typeof(Mapping_Profile));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

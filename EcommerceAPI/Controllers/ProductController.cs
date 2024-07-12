@@ -1,8 +1,13 @@
 ﻿using Ecommerce.Core.IRepositories;
 using Ecommerce.Core.Models;
 using Ecommerce.Infastructure.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using Ecommerce.Core.DTO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace Ecommerce.API.Controllers
 {
@@ -12,39 +17,34 @@ namespace Ecommerce.API.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IUnitOfWork<Product> unitOfWork;
-        
-        private readonly IProductsRepository iproductRepo;
-        private readonly IGenericRepository<Product> igenericRepo;
-        private readonly IProductsRepository productRepositories;
+        private readonly IMapper mapper;
         public ApiResponse response;
-        public ProductController(ApplicationDbContext context,/*IProductsRepository iproductRepo */ IUnitOfWork<Product>unitOfWork)
+
+        public ProductController(ApplicationDbContext context, IUnitOfWork<Product> unitOfWork, IMapper mapper)
         {
             this.context = context;
             this.unitOfWork = unitOfWork;
+            this.mapper = mapper;
             response = new ApiResponse();
-            /*this.iproductRepo = iproductRepo;
-            this.igenericRepo = igenericRepo;*/
-            //this.iproductRepo = iproductRepo;
-            //this.productRepositories = productRepositories;
         }
+
         [HttpGet]
         public async Task<ActionResult<ApiResponse>> GetAll()
         {
-            //igenericRepo.GetAll();
-           // var models = iproductRepo.GetAll();
             var models = await unitOfWork.productRepository.GetAll();
             var check = models.Any();
             if (check)
             {
-                response.StatusCode = System.Net.HttpStatusCode.OK;
+                response.StatusCode = HttpStatusCode.OK;
                 response.IsSuccess = check;
-                response.Result = models;
+                var mappedProduct = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(models);
+                response.Result = mappedProduct;
                 return response;
             }
             else
             {
-                response.ErrorMessage = "no products found";
-                response.StatusCode = System.Net.HttpStatusCode.OK;
+                response.ErrorMessage = "No products found";
+                response.StatusCode = HttpStatusCode.OK;
                 response.IsSuccess = false;
                 return response;
             }
@@ -74,15 +74,31 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpPost]
-        public  async Task<ActionResult<ApiResponse>> CreateProduct(Product request)
+        public  async Task<ActionResult<ApiResponse>> CreateProduct(Create_UpdateProductDTO request)
         {
             //igenericRepo.CreateProduct(request);
-           // iproductRepo.CreateProduct(request);
-            await unitOfWork.productRepository.CreateProduct(request);
-            await unitOfWork.Save();
-            //context.SaveChanges();
+            // iproductRepo.CreateProduct(request);
+            //await unitOfWork.productRepository.CreateProduct(request);
+            //await unitOfWork.Save();
+            ////context.SaveChanges();
 
-            return Ok();
+            //return Ok();
+            if (request == null)
+            {
+                response.ErrorMessage = "Invalid product data.";
+                response.StatusCode = HttpStatusCode.BadRequest;
+                response.IsSuccess = false;
+                return BadRequest(response);
+            }
+
+            var product = mapper.Map<Product>(request);
+            await unitOfWork.productRepository.CreateProduct(product);
+            await unitOfWork.Save();
+
+            response.StatusCode = System.Net.HttpStatusCode.OK;
+            response.IsSuccess = true;
+            response.Result = product;
+            return Ok(response);
         }
 
         [HttpPut]
@@ -107,5 +123,30 @@ namespace Ecommerce.API.Controllers
             //context.SaveChanges();
             return Ok();
         }
+
+        [HttpGet("productById/({cat_id})")]
+
+        public async Task <ActionResult<ApiResponse>> GetAllProductById(int cat_id)
+        {
+            var products = await unitOfWork.productRepository.GetAllProductByCategoryId(cat_id);
+            var check = products.Any();
+            if (check)
+            {
+                response.StatusCode = HttpStatusCode.OK;
+                response.IsSuccess = check;
+                var mappedProduct = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDTO>>(products);
+                response.Result = mappedProduct;
+                return response;
+            }
+            else
+            {
+                response.ErrorMessage = "No products found";
+                response.StatusCode = HttpStatusCode.OK;
+                response.IsSuccess = false;
+                return response;
+            }
+
+        }
+
     }
 }

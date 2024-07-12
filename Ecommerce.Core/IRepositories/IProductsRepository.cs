@@ -10,5 +10,7 @@ namespace Ecommerce.Core.IRepositories
     public interface IProductsRepository: IGenericRepository<Product>
     {
         public Task<Product> FilterProduct();
+
+        public Task<IEnumerable<Product>> GetAllProductByCategoryId(int cat_id);
     }
 }

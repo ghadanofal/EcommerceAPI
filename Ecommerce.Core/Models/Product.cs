@@ -15,9 +15,9 @@ namespace Ecommerce.Core.Models
         public string? Image {  get; set; }
 
         public int CategoryId { get; set; }
-        public Category? categories { get; set; }
+        public virtual Category? categories { get; set; }
 
        
-        public ICollection<OrderDetails>? orderDetails = new HashSet<OrderDetails>();
+        public virtual ICollection<OrderDetails>? orderDetails { get; set; } = new HashSet<OrderDetails>();
     }
 }

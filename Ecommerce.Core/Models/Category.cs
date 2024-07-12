@@ -14,8 +14,8 @@ namespace Ecommerce.Core.Models
         public string Description { get; set; }
 
         [ForeignKey(nameof(Product)) ]
-        public int ProductId { get; set; }
+        public virtual int ProductId { get; set; }
 
-        public ICollection<Product> Products = new HashSet<Product>();
+        public virtual ICollection<Product> Products { get; set; } = new HashSet<Product>();
     }
 }

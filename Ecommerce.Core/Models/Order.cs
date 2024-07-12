@@ -15,8 +15,8 @@ namespace Ecommerce.Core.Models
         
         public string OrderSatutus { get; set; }
         public DateTime OrderDate {  get; set; }
-        public LocalUser? LocalUsers { get; set; }
-        public ICollection<OrderDetails> orderDetails = new HashSet<OrderDetails>();
+        public virtual LocalUser? LocalUsers { get; set; }
+        public virtual ICollection<OrderDetails> orderDetails { get; set; } = new HashSet<OrderDetails>();
 
     }
 }
