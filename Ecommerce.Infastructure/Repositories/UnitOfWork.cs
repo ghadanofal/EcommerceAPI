@@ -17,8 +17,10 @@ namespace Ecommerce.Infastructure.Repositories
         {
             this.context = context;
             productRepository = new ProductRepositories(context);
+            orderRepository = new OrderRepository(context);
         }
         public IProductsRepository productRepository { get ; set ; }
+        public IOrderRepository orderRepository { get; set; }
 
         public async Task<int> Save()
         {

@@ -10,9 +10,8 @@ namespace Ecommerce.API.mapping_profile
         {
             CreateMap<Product, ProductDTO>().ForMember(To => To.category_Name, From => From.MapFrom(x => x.categories != null ? x.categories.Name : null));
             CreateMap<Create_UpdateProductDTO, Product>()
-               //.ForMember(dest => dest.Id, opt => opt.Ignore())
                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId));
-               //.ForMember(dest => dest.categories, opt => opt.Ignore());
+            CreateMap<Order, OrderDTO>().ForMember(dest => dest.LocalUserId, opt => opt.MapFrom(src => src.LocalUserId));
         }
     }
 }

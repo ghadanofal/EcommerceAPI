@@ -9,7 +9,7 @@ namespace Ecommerce.Core.IRepositories
     public interface IUnitOfWork<T> where T : class
     {
         public IProductsRepository productRepository { get; set; }
-
+        public IOrderRepository orderRepository { get; set; }
         public Task<int> Save();
         
     }
