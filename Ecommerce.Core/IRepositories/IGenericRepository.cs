@@ -9,7 +9,7 @@ namespace Ecommerce.Core.IRepositories
 {
     public interface IGenericRepository<T> where T : class
     {
-        public Task <IEnumerable<T>> GetAll();
+        public Task <IEnumerable<T>> GetAll(int page_Size = 2, int page_Number = 1, string? includeProperity = null);
         public Task <T> GetById(int id);
         public Task CreateProduct(T request);
         public void updateProduct(T request);

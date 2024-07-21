@@ -36,7 +36,7 @@ namespace Ecommerce.API.Controllers
             var check = models.Any();
             if (check)
             {
-                response.StatusCode = HttpStatusCode.OK;
+                response.StatusCode = 200;
                 response.IsSuccess = check;
                 var mappedProduct = mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(models);
                 response.Result = mappedProduct;
@@ -44,8 +44,8 @@ namespace Ecommerce.API.Controllers
             }
             else
             {
-                response.ErrorMessage = "No products found";
-                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "No products found";
+                response.StatusCode = 200;
                 response.IsSuccess = false;
                 return response;
             }
@@ -57,7 +57,7 @@ namespace Ecommerce.API.Controllers
             var check = products.Any();
             if (check)
             {
-                response.StatusCode = HttpStatusCode.OK;
+                response.StatusCode = 200;
                 response.IsSuccess = check;
                 var mappedProduct = mapper.Map<IEnumerable<Order>, IEnumerable<OrderDTO>>(products);
                 response.Result = mappedProduct;
@@ -65,8 +65,8 @@ namespace Ecommerce.API.Controllers
             }
             else
             {
-                response.ErrorMessage = "No products found";
-                response.StatusCode = HttpStatusCode.OK;
+                response.Message = "No products found";
+                response.StatusCode = 200;
                 response.IsSuccess = false;
                 return response;
             }

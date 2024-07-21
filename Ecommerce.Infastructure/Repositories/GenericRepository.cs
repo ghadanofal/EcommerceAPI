@@ -31,14 +31,33 @@ namespace Ecommerce.Infastructure.Repositories
             context.Remove(model);
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAll(int page_Size=2, int page_Number=1, string? includeProperity = null)
         {
-            if(typeof(T)== typeof(Product))
+            //if(typeof(T)== typeof(Product))
+            //{
+            //    var query = await context.Products.Include(x => x.categories).ToListAsync();
+            //     return (IEnumerable<T>)query;
+            //}
+
+            IQueryable<T> query = context.Set<T>();
+            if(includeProperity != null)
             {
-                var query = await context.Products.Include(x => x.categories).ToListAsync();
-                 return (IEnumerable<T>)query;
+                //includeProperity = "categories, order"
+                foreach (var prority in includeProperity.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperity);
+
+                }
             }
-            return await context.Set<T>().ToListAsync();
+            if(page_Size > 0)
+            {
+                if(page_Size > 4)
+                {
+                    page_Size = 4;
+                }
+            }
+            query = query.Skip(page_Size * (page_Number - 1)).Take(page_Size);
+            return await query.ToListAsync();
         }
 
         public async Task<T> GetById(int id)
