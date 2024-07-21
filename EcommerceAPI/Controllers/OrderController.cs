@@ -7,6 +7,7 @@ using Ecommerce.Infastructure.Data;
 using Ecommerce.Infastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq.Expressions;
 using System.Net;
 
 namespace Ecommerce.API.Controllers
@@ -30,9 +31,10 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> GetAll()
+        public async Task<ActionResult<ApiResponse>> GetAllOrder( int pageSize = 2, int pageNumber = 1)
         {
-            var models = await unitOfWork.orderRepository.GetAll();
+            var models = await unitOfWork.orderRepository.GetAll(page_Size: pageSize, page_Number: pageNumber,
+                includeProperity: "categories");
             var check = models.Any();
             if (check)
             {

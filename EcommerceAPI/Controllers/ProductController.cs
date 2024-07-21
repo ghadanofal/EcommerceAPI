@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
+using System.Linq.Expressions;
 
 namespace Ecommerce.API.Controllers
 {
@@ -30,9 +31,14 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse>> GetAllProduct(int pageSize = 2 , int pageNumber= 1)
+        public async Task<ActionResult<ApiResponse>> GetAllProduct([FromQuery]string? category_name = null, int pageSize = 2 , int pageNumber= 1)
         {
-            var models = await unitOfWork.productRepository.GetAll(page_Size: pageSize, page_Number: pageNumber,
+            Expression<Func<Product, bool>> filter = null;
+            if (!string.IsNullOrEmpty(category_name))
+            {
+                filter = x => x.categories.Name.Contains(category_name);
+            }
+            var models = await unitOfWork.productRepository.GetAll(filter : filter ,page_Size: pageSize, page_Number: pageNumber,
                 includeProperity : "categories");
             var check = models.Any();
             if (check)

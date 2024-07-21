@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace Ecommerce.Infastructure.Repositories
             context.Remove(model);
         }
 
-        public async Task<IEnumerable<T>> GetAll(int page_Size=2, int page_Number=1, string? includeProperity = null)
+        public async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>> filter = null, int page_Size =2, int page_Number=1, string? includeProperity = null)
         {
             //if(typeof(T)== typeof(Product))
             //{
@@ -39,7 +40,12 @@ namespace Ecommerce.Infastructure.Repositories
             //     return (IEnumerable<T>)query;
             //}
 
-            IQueryable<T> query = context.Set<T>();
+            IQueryable<T> query = context.Set<T>(); /// Product  where().Include
+
+            if(filter != null)
+            {
+                query = query.Where(filter);
+            }
             if(includeProperity != null)
             {
                 //includeProperity = "categories, order"
