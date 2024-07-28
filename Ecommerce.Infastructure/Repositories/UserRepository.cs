@@ -44,8 +44,8 @@ namespace Ecommerce.Infastructure.Repositories
         {
             var user = new LocalUser
             {
-                UserName = registerationRequestDTO.Email,
-                Email = registerationRequestDTO.Email.Split("@")[0],
+                UserName = registerationRequestDTO.Email.Split("@")[0],
+                Email = registerationRequestDTO.Email,
                 NormalizedEmail = registerationRequestDTO.Email.ToUpper(),
                 FirstName = registerationRequestDTO.FName,
                 LastName = registerationRequestDTO.LName,
