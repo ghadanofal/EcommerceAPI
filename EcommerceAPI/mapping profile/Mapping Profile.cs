@@ -12,6 +12,7 @@ namespace Ecommerce.API.mapping_profile
             CreateMap<Create_UpdateProductDTO, Product>()
                .ForMember(dest => dest.CategoryId, opt => opt.MapFrom(src => src.CategoryId));
             CreateMap<Order, OrderDTO>().ForMember(dest => dest.LocalUserId, opt => opt.MapFrom(src => src.LocalUserId));
+            CreateMap<LocalUser, LocalUserDTO>().ReverseMap();
         }
     }
 }

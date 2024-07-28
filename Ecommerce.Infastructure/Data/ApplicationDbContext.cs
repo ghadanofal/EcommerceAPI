@@ -1,4 +1,6 @@
 ﻿using Ecommerce.Core.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 namespace Ecommerce.Infastructure.Data
 {
     
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : IdentityDbContext<LocalUser>
     {
         
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext>options): base(options)
@@ -21,6 +23,8 @@ namespace Ecommerce.Infastructure.Data
         {
             modelBuilder.Entity<OrderDetails>()
                 .HasKey(e => new {  e.Id , e.OrderId, e.ProductId});
+
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Product>()
                .Property(p => p.price)
@@ -36,8 +40,8 @@ namespace Ecommerce.Infastructure.Data
            );
 
             modelBuilder.Entity<LocalUser>().HasData(
-                new LocalUser { Id = 1, Name = "John Doe", Email = "ghada@example.com", Password = "password", Phone = "1234567890", Role = "Customer" },
-                new LocalUser { Id = 2, Name = "Jane Doe", Email = "manal@example.com", Password = "password", Phone = "0987654321", Role = "Admin" }
+                new LocalUser { FirstName = "ghada", LastName = "nofal", Address = "Idna"},
+                new LocalUser { FirstName = "manal", LastName = "amro", Address = "Idna" }
             );
 
             modelBuilder.Entity<Product>().HasData(
@@ -63,6 +67,8 @@ namespace Ecommerce.Infastructure.Data
         public DbSet<OrderDetails> OrderDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<LocalUser> LocalUsers { get; set; }
+
+       // public DbSet <IdentityUser> User { get; set; }
 
 
     }
