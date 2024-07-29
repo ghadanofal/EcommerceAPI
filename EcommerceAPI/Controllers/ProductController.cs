@@ -10,6 +10,10 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Server.HttpSys;
 
 namespace Ecommerce.API.Controllers
 {
@@ -31,6 +35,7 @@ namespace Ecommerce.API.Controllers
         }
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles ="Admin")]
         public async Task<ActionResult<ApiResponse>> GetAllProduct([FromQuery]string? category_name = null, int pageSize = 2 , int pageNumber= 1)
         {
             Expression<Func<Product, bool>> filter = null;

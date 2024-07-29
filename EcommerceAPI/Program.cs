@@ -2,13 +2,18 @@
 using Ecommerce.API.mapping_profile;
 using Ecommerce.Core.DTO;
 using Ecommerce.Core.IRepositories;
+using Ecommerce.Core.IRepositories.IServices;
 using Ecommerce.Core.Models;
 using Ecommerce.Infastructure.Data;
 using Ecommerce.Infastructure.Repositories;
+using Ecommerce.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace EcommerceAPI
 {
@@ -31,12 +36,29 @@ namespace EcommerceAPI
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
             builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            builder.Services.AddScoped<ITokenService ,TokenService>();
             //builder.Services.AddScoped(typeof(RoleManager<IdentityRole>));
             //builder.Services.AddScoped(typeof(UserManager<LocalUser>));
             //builder.Services.AddScoped(typeof(SignInManager<IdentityUser>));
 
+            var key = builder.Configuration.GetValue<string>("TokenSetting:SecretKey");
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
-            builder.Services.AddAuthentication();
+            }).AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(key)),
+                };
+            });
 
 
             //for createAsync

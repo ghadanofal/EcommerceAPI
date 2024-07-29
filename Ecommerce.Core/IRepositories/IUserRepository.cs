@@ -9,7 +9,7 @@ namespace Ecommerce.Core.IRepositories
 {
     public interface IUserRepository
     {
-        Task<LoginRequestDTO> Login(LoginRequestDTO LoginRequestDTO);
+        Task<LoginResponseDTO> Login(LoginRequestDTO LoginRequestDTO);
         Task<LocalUserDTO> Register(RegisterationRequestDTO RegisterationRequestDTO);
         bool IsUniqueUser(string Email);
     }

@@ -21,6 +21,32 @@ namespace Ecommerce.API.Controllers
             this.userRepository = userRepository;
         }
 
+        [HttpPost("login")]
+        public async Task <ActionResult> LoginFunction([FromBody] LoginRequestDTO loginRequestDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userRepository.Login(loginRequestDTO);
+
+                if (user.user == null)
+                {
+                    return Unauthorized(new ApiValidationResponse(new List<string>() { "Email or Password is inCorrect"}, 400));
+
+                }
+                return Ok(user);
+            }
+            return BadRequest(new ApiValidationResponse(new List<string>() { "Please try to enter the email and password correctlyt" }, 400));
+        }
+
+
+
+
+
+
+
+
+
+
         [HttpPost("register")]
         public async Task<IActionResult> RegisterFunction([FromBody]RegisterationRequestDTO model) {
             try

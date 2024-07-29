@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Ecommerce.Core.DTO;
 using Ecommerce.Core.IRepositories;
+using Ecommerce.Core.IRepositories.IServices;
 using Ecommerce.Core.Models;
 using Ecommerce.Infastructure.Data;
+using Ecommerce.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -21,13 +23,20 @@ namespace Ecommerce.Infastructure.Repositories
         private readonly UserManager<LocalUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IMapper mapper;
+        private readonly SignInManager<LocalUser> signInManager;
+        private readonly ITokenService tokenService;
 
-        public UserRepository(ApplicationDbContext context, UserManager<LocalUser>userManager, RoleManager<IdentityRole>roleManager, IMapper mapper)
+        public UserRepository(ApplicationDbContext context, UserManager<LocalUser>userManager, 
+                               RoleManager<IdentityRole>roleManager, IMapper mapper,
+                               SignInManager<LocalUser>signInManager,
+                               ITokenService tokenService)
         {
             this.context = context;
             this.userManager = userManager;
             this.roleManager = roleManager;
             this.mapper = mapper;
+            this.signInManager = signInManager;
+            this.tokenService = tokenService;
         }
         public bool IsUniqueUser(string email)
         {
@@ -35,9 +44,28 @@ namespace Ecommerce.Infastructure.Repositories
             return result == null;
         }
 
-        public Task<LoginRequestDTO> Login(LoginRequestDTO LoginRequestDTO)
+        public async Task<LoginResponseDTO> Login(LoginRequestDTO loginRequestDTO)
         {
-            throw new NotImplementedException();
+            var user = await userManager.FindByEmailAsync(loginRequestDTO.Email);
+
+            var checkPasssword = await signInManager.CheckPasswordSignInAsync(user, loginRequestDTO.password, false);
+            if (!checkPasssword.Succeeded)
+            {
+                return new LoginResponseDTO()
+                {
+                    user = null,
+                    Token ="",
+                    
+                };
+            }
+
+            var role = await userManager.GetRolesAsync(user);
+            return new LoginResponseDTO()
+            {
+                user = mapper.Map<LocalUserDTO>(user),
+                Token = await tokenService.CreateTokenAsync(user),
+                Role = role.FirstOrDefault(),
+            };
         }
 
         public async Task<LocalUserDTO> Register(RegisterationRequestDTO registerationRequestDTO)

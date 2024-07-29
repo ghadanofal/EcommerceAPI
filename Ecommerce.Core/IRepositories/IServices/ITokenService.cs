@@ -9,6 +9,6 @@ namespace Ecommerce.Core.IRepositories.IServices
 {
     public interface ITokenService
     {
-        Task<string> CreateToken(LocalUser localUser);
+        Task<string> CreateTokenAsync(LocalUser localUser);
     }
 }

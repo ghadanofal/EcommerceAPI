@@ -25,10 +25,11 @@ namespace Ecommerce.Services
         {
             this.configuration = configuration;
             this.userManager = userManager;
-            secretkey = configuration.GetSection("TokenSetting")["Secret"];
+            secretkey = configuration.GetSection("TokenSetting")["SecretKey"];
 
         }
-        public async Task<string> CreateToken(LocalUser localUser)
+
+        public async Task<string> CreateTokenAsync(LocalUser localUser)
         {
             var key = Encoding.ASCII.GetBytes(secretkey);
 

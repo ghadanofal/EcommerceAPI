@@ -16,3 +16,5 @@ D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Infastructure\obj\Debug\net8.0\
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Infastructure\obj\Debug\net8.0\Ecommerce.Infastructure.genruntimeconfig.cache
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Infastructure\obj\Debug\net8.0\ref\Ecommerce.Infastructure.dll
 D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Infastructure\obj\Debug\net8.0\Ecommerce.Infastructure.sourcelink.json
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Infastructure\bin\Debug\net8.0\Ecommerce.Services.dll
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Infastructure\bin\Debug\net8.0\Ecommerce.Services.pdb

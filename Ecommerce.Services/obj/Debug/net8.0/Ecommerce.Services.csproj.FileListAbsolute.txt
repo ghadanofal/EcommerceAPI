@@ -1,0 +1,16 @@
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\bin\Debug\net8.0\Ecommerce.Services.deps.json
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\bin\Debug\net8.0\Ecommerce.Services.dll
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\bin\Debug\net8.0\Ecommerce.Services.pdb
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\bin\Debug\net8.0\Ecommerce.Core.dll
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\bin\Debug\net8.0\Ecommerce.Core.pdb
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.csproj.AssemblyReference.cache
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.GeneratedMSBuildEditorConfig.editorconfig
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.AssemblyInfoInputs.cache
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.AssemblyInfo.cs
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.csproj.CoreCompileInputs.cache
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.sourcelink.json
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.csproj.CopyComplete
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.dll
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\refint\Ecommerce.Services.dll
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\Ecommerce.Services.pdb
+D:\full stack\asp_net\API\EcommerceAPI\Ecommerce.Services\obj\Debug\net8.0\ref\Ecommerce.Services.dll
